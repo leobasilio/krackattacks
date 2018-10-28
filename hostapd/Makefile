@@ -22,8 +22,8 @@ endif
 endif
 
 CFLAGS += $(EXTRA_CFLAGS)
-CFLAGS += -I$(abspath ../src)
-CFLAGS += -I$(abspath ../src/utils)
+CFLAGS += -I"$(abspath ../src)"
+CFLAGS += -I"$(abspath ../src/utils)"
 
 export BINDIR ?= /usr/local/bin/
 

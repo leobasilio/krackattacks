@@ -3143,6 +3143,13 @@ SM_STATE(WPA_PTK, PTKINITDONE)
 	else
 		sm->has_GTK = TRUE;
 #ifdef KRACK_TEST_CLIENT
+
+/*printf("ZERANDO CHAVE.....\n");
+    os_memset(sm->PTK.kck, 0, WPA_KCK_MAX_LEN);
+	os_memset(sm->PTK.kek, 0, WPA_KEK_MAX_LEN);
+    os_memset(sm->PTK.kck2, 0, WPA_KCK_MAX_LEN);
+	os_memset(sm->PTK.kek2, 0, WPA_KEK_MAX_LEN);
+*/
 	poc_log(sm->addr, "4-way handshake completed (%s)\n", sm->wpa == WPA_VERSION_WPA ? "WPA" : "RSN");
 #else
 	wpa_auth_vlogger(sm->wpa_auth, sm->addr, LOGGER_INFO,

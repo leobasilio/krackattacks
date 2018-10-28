@@ -487,10 +487,11 @@ class KRAckAttackClient():
 				# When testing if the replay counter of the group key is properly installed, always install
 				# a new group key. Otherwise KRACK patches might interfere with this test.
 				# Otherwise just reset the replay counter of the current group key.
-				if self.options.variant in [TestOptions.Fourway, TestOptions.Grouphs] and self.options.gtkinit:
-					hostapd_command(self.hostapd_ctrl, "RENEW_GTK")
-				else:
-					hostapd_command(self.hostapd_ctrl, "RESET_PN FF:FF:FF:FF:FF:FF")
+				#if self.options.variant in [TestOptions.Fourway, TestOptions.Grouphs] and self.options.gtkinit:
+				#	pass
+				#	hostapd_command(self.hostapd_ctrl, "RENEW_GTK")
+				#else:
+				#	hostapd_command(self.hostapd_ctrl, "RESET_PN FF:FF:FF:FF:FF:FF")
 
 				self.next_arp = time.time() + HANDSHAKE_TRANSMIT_INTERVAL
 				for client in self.clients.values():
@@ -513,14 +514,14 @@ class KRAckAttackClient():
 
 					# 2. Test if broadcast ARP request are accepted by the client. Keep injecting even
 					#    to PATCHED clients (just to be sure they keep rejecting replayed frames).
-					if self.options.variant in [TestOptions.Fourway, TestOptions.Grouphs, TestOptions.ReplayBroadcast]:
-						# 2a. Check if we got replies to previous requests (and determine if vulnerable)
-						client.broadcast_check_replies()
+					# if self.options.variant in [TestOptions.Fourway, TestOptions.Grouphs, TestOptions.ReplayBroadcast]:
+					# 	# 2a. Check if we got replies to previous requests (and determine if vulnerable)
+					# 	client.broadcast_check_replies()
 
-						# 2b. Send new broadcast ARP requests (and handshake messages if needed)
-						if client.vuln_bcast != ClientState.VULNERABLE and client.mac in self.dhcp.leases:
-							time.sleep(1)
-							self.broadcast_send_request(client)
+					# 	# 2b. Send new broadcast ARP requests (and handshake messages if needed)
+					# 	if client.vuln_bcast != ClientState.VULNERABLE and client.mac in self.dhcp.leases:
+					# 		time.sleep(1)
+					# 		self.broadcast_send_request(client)
 
 
 	def stop(self):
